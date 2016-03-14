@@ -10,6 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_crimes"
+                android:textAlignment="center"
+                />
+            <Button
+                android:id="@+id/empty_new_crime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/new_crime"/>
+        </RelativeLayout>
+
     </android.support.v7.widget.RecyclerView>
 
 <!--</LinearLayout>-->
