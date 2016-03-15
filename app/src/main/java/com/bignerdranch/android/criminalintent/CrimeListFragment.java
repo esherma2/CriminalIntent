@@ -47,7 +47,7 @@ public class CrimeListFragment extends Fragment {
         mEmptyNewCrime.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                new CrimeFromEmpty(); //I can't figure out why the CrimeFromEmpty method will not work.
+               // new CrimeFromEmpty(); //I can't figure out why the CrimeFromEmpty method will not work.
             }
         });
 
@@ -94,7 +94,7 @@ public class CrimeListFragment extends Fragment {
                 CrimeLab.get(getActivity()).addCrime(crime);
                 Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
                 startActivity(intent);
-                new CrimeFromEmpty();
+                //new CrimeFromEmpty();
                 return true;
             case R.id.menu_item_show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
@@ -134,6 +134,7 @@ public class CrimeListFragment extends Fragment {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setCrimes(crimes);
             mAdapter.notifyDataSetChanged();
         }
 
@@ -204,6 +205,10 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
         }
     }
 }
