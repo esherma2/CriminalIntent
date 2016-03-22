@@ -27,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
+        <include
+            layout="@layout/view_camera_and_title"/>
 
         <Button
             android:id="@+id/crime_suspect"
