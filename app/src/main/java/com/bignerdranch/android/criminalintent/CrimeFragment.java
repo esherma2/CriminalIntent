@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -51,6 +53,7 @@ public class CrimeFragment extends Fragment {
     private Button mReportButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
+    private Point mPhotoSize;
 
     public static CrimeFragment newInstance(UUID crimeId){
         Bundle args = new Bundle();
@@ -187,6 +190,22 @@ public class CrimeFragment extends Fragment {
         });
 
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
+
+        final ViewTreeObserver viewTreeObserver = mPhotoView.getViewTreeObserver();
+
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+            @Override
+            public void onGlobalLayout(){
+                boolean first = (mPhotoSize == null);
+                mPhotoSize = new Point();
+                mPhotoSize.set(mPhotoView.getWidth(),mPhotoView.getHeight());
+
+                if (first)
+                    updatePhotoView();
+
+                viewTreeObserver.removeOnGlobalLayoutListener(this);
+            }
+        });
         updatePhotoView();
 
         mPhotoView.setOnClickListener(new View.OnClickListener() {
@@ -267,8 +286,8 @@ public class CrimeFragment extends Fragment {
         if(mPhotoFile == null || !mPhotoFile.exists()){
             mPhotoView.setImageDrawable(null);
         }else{
-            Bitmap bitmap = PictureUtils.getScaledBitmap(
-                    mPhotoFile.getPath(), getActivity());
+            Bitmap bitmap = (mPhotoSize == null) ? PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity()):
+                    PictureUtils.getScaledBitmap(mPhotoFile.getPath(), mPhotoSize.x, mPhotoSize.y);
             mPhotoView.setImageBitmap(bitmap);
         }
     }
