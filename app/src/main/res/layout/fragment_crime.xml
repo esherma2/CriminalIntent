@@ -6,6 +6,9 @@
     <include
         layout="@layout/view_camera_and_title"/>
 
+    <include
+        layout="@layout/zoom_on_suspect"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

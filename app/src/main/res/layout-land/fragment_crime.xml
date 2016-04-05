@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
+    <include
+        layout="@layout/view_camera_and_title"/>
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/crime_title_label"
@@ -14,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/crime_title_hint"/>
-
+-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
-        <include
-            layout="@layout/view_camera_and_title"/>
+
 
         <Button
             android:id="@+id/crime_suspect"
